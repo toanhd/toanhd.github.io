@@ -133,10 +133,8 @@
 <body>
     <div class="wrapper text-center">
         <h2>F&S YEP 2022</h2>
-        <div>
-            <button class="button-19 button-19-primary" onclick="showPlayerAns()">Who would play?</button>
-            <button class="button-19 button-19-secondary" onclick="showQuiz()">Which answer?</button>
-        </div>
+        <button class="button-19 button-19-primary" onclick="showPlayerAns()">Who would play?</button>
+        <button class="button-19 button-19-secondary" onclick="showQuiz()">Which answer?</button>
         <div class="mt-lg">
             <table style="width:100%">
                 <tr>
@@ -150,19 +148,14 @@
 
             </table>
         </div>
-        <div>
+        <h1 class="ml4" style="height: 800px;">
+            <span class="letters letters-1" id="quizPlaceholder"></span>
+        </h1>
+        <button class="button-19 button-19-secondary" onclick="showAns()">Your word</button>
 
-            <p id="playerPlaceholder1"></p>
-            <p id="ansPlaceholder1"></p>
-            <br>
-            <p id="playerPlaceholder2"></p>
-            <p id="ansPlaceholder2"></p>
-            <h1 class="ml4">
-                <span class="letters letters-1" id="quizPlaceholder"></span>
-            </h1>
-
-        </div>
-
+        <h1 class="ml4" style="height: 800px;">
+            <span class="letters letters-1" id="ansPlaceholder"></span>
+        </h1>
     </div>
 
 </body>
@@ -397,14 +390,12 @@
         'Thảo/Hà ơi, em hỏi tí',
         'Sếp ơii, cíu em',
         'Thế áa',
-        'trờiii',
         'Xong chưa em?',
         'Lại phải report',
         'Sao số không tăng nhỉ?',
     ];
     var randomAns = [];
-    let ansPlaceholder1 = document.getElementById("ansPlaceholder1");
-    let ansPlaceholder2 = document.getElementById("ansPlaceholder2");
+    let ansPlaceholder = document.getElementById("ansPlaceholder");
 
     var rawPlayer = [
         'nhan.nguyen6',
@@ -481,26 +472,23 @@
         }
     }
 
-    function showPlayerAns2() {
-        if (rawPlayer.length !== 0) {
+    function showAns() {
+        if (rawAns.length !== 0) {
             randAnsOrder = Math.floor(Math.random() * (rawAns.length));
-            randPlayerOrder = Math.floor(Math.random() * (rawPlayer.length));
-
-            ansPlaceholder2.innerHTML = rawAns[randAnsOrder];
-            playerPlaceholder2.innerHTML = rawPlayer[randPlayerOrder];
-
+            ansPlaceholder.innerHTML = rawAns[randAnsOrder];
+            anime.timeline({ loop: false })
+                .add({
+                    targets: '.ml4 .letters-1',
+                    opacity: ml4.opacityIn,
+                    scale: ml4.scaleIn,
+                    duration: ml4.durationIn
+                });
             randomAns.push(rawAns[randAnsOrder]);
-            randomPlayer.push(rawPlayer[randPlayerOrder]);
-
             rawAns.splice(randAnsOrder, 1);
-            rawPlayer.splice(randPlayerOrder, 1);
-
         } else {
-            quizPlaceholder.innerHTML = "No more player";
+            quizPlaceholder.innerHTML = "No more quiz";
         }
     }
-
-
 
 </script>
 
