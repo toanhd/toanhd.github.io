@@ -152,10 +152,20 @@
             <span class="letters letters-1" id="quizPlaceholder"></span>
         </h1>
         <button class="button-19 button-19-secondary" onclick="showAns()">Your word</button>
+        <div class="mt-lg" style="height: 800px;">
+            <table style="width:100%">
+                <tr>
+                    <th>Start with</th>
+                    <th>End with</th>
+                </tr>
+                <tr>
+                    <td><span id="ansPlaceholder1"></span></td>
+                    <td><span id="ansPlaceholder2"></span></td>
+                </tr>
 
-        <h1 class="ml4" style="height: 800px;">
-            <span class="letters letters-1" id="ansPlaceholder"></span>
-        </h1>
+            </table>
+        </div>
+
     </div>
 
 </body>
@@ -395,7 +405,9 @@
         'Sao số không tăng nhỉ?',
     ];
     var randomAns = [];
-    let ansPlaceholder = document.getElementById("ansPlaceholder");
+    let ansPlaceholder1 = document.getElementById("ansPlaceholder1");
+    let ansPlaceholder2 = document.getElementById("ansPlaceholder2");
+
 
     var rawPlayer = [
         'nhan.nguyen6',
@@ -474,17 +486,15 @@
 
     function showAns() {
         if (rawAns.length !== 0) {
-            randAnsOrder = Math.floor(Math.random() * (rawAns.length));
-            ansPlaceholder.innerHTML = rawAns[randAnsOrder];
-            anime.timeline({ loop: false })
-                .add({
-                    targets: '.ml4 .letters-1',
-                    opacity: ml4.opacityIn,
-                    scale: ml4.scaleIn,
-                    duration: ml4.durationIn
-                });
-            randomAns.push(rawAns[randAnsOrder]);
-            rawAns.splice(randAnsOrder, 1);
+            randAnsOrder1 = Math.floor(Math.random() * (rawAns.length));
+            ansPlaceholder1.innerHTML = rawAns[randAnsOrder1];
+            randomAns.push(rawAns[randAnsOrder1]);
+            rawAns.splice(randAnsOrder1, 1);
+
+            randAnsOrder2 = Math.floor(Math.random() * (rawAns.length));
+            ansPlaceholder2.innerHTML = rawAns[randAnsOrder2];
+            randomAns.push(rawAns[randAnsOrder2]);
+            rawAns.splice(randAnsOrder2, 1);
         } else {
             quizPlaceholder.innerHTML = "No more quiz";
         }
