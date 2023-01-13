@@ -45,7 +45,6 @@
 
     .button-19 {
         appearance: button;
-
         border: solid transparent;
         border-radius: 16px;
         border-width: 0 0 4px;
@@ -58,7 +57,7 @@
         font-weight: 700;
         letter-spacing: .8px;
         line-height: 20px;
-        margin: 0;
+        margin: 0 8px;
         outline: none;
         overflow: visible;
         padding: 13px 16px;
@@ -163,8 +162,8 @@
         <div class="mt-lg" style="height: 800px;">
             <table style="width:100%">
                 <tr>
-                    <th>Start with</th>
-                    <th>End with</th>
+                    <th>1st statement <br> for asking or giving gift</th>
+                    <th>2nd statement <br>for answering or receiving present </th>
                 </tr>
                 <tr>
                     <td><span id="ansPlaceholder1"></span></td>
@@ -172,7 +171,6 @@
                 </tr>
             </table>
         </div>
-
     </div>
 
 </body>
@@ -302,12 +300,41 @@
         'Tôi sinh ngày mấy',
         'Lương tôi bao nhiêu',
         'Bạn có ghét người đang làm MC',
+        'Tại sao sư tử là con thầy?',
+        'Xã đông nhất là xã nào?',
+        'Duy Nhân và Duy Anh có phải anh em không?',
+        'Cái gì thuộc về bạn nhưng người khác lại dùng nhiều hơn bạn?',
+        'Điểm tin cậy bao nhiêu thì mới được truy cập vào dịch vụ Vay nhanh?',
+        'Con trai có gì quý nhất?',
+        'Từ gì mà 100% team FS đều phát âm sai?',
+        'Theo bạn, một ngày đi làm "hoàn hảo" là như thế nào?',
+        'Ngoài sản phẩm của bạn, bạn sử dụng mini-app nào nhiều nhất trên MoMo?',
+        'Nếu không làm Product, bạn nghĩ bạn sẽ làm nghề gì?',
+        'Ở một vũ trụ khác, nếu có thể hẹn hò 1 người ngồi trong không gian này, sẽ là ai và vì sao?',
+        'Ở một vũ trụ khác, nếu có thể cưới 1 người ngồi trong không gian này, sẽ là ai và vì sao?',
+        'Ở một vũ trụ khác, nếu có thể làm em của 1 người ngồi trong không gian này, sẽ là ai và vì sao?',
+        'Ở một vũ trụ khác, nếu có thể làm anh chị của 1 người ngồi trong không gian này, sẽ là ai và vì sao?',
+        'Ở một vũ trụ khác, nếu có thể được làm bạn thân cùng 1 người ngồi trong không gian này, sẽ là ai và vì sao?',
+        '1 bí mật về bản thân mà mọi người sẽ bất ngờ',
+        '1 điểm về bản thân mà nhiều người ấn tượng về bạn nhất',
+        'Ấn tượng đầu tiên về sếp Tuấn',
+        'Ấn tượng đầu tiên về supervisor của bạn',
+        '3 điều bạn nhớ nhất về năm 2022 của team',
+        'Bạn có đang crush ai trong công ty không? Bạn ấy thuộc Team nào?',
+        'Ai là hình mẫu lý tưởng của bạn trong MoMo?',
+        'Thói quen hoặc sở thích nào của bạn mà bạn cho là khác thường?',
+        'Bạn đã trải qua việc gì ở MoMo mà bạn nghĩ là sẽ không bao giờ quên được (có thể là trải nghiệm tốt hoặc không tốt)',
+        'Nếu bạn có quyền chọn thêm 1 teammate (từ team khác) thì bạn sẽ chọn ai? Vì sao?',
+        'Mô tả 1 điều bạn rất không thích ở sếp bạn?',
+        'Nếu được hẹn hò 1 ngày với Nhân (FS), thì 2 bạn sẽ làm những gì?',
+        'Bạn muốn uống hết 2 ly bia trên bàn hay 1 ly nước ngọt? Thích cái nào thì làm cái đó luôn nha =))',
+        'Mô tả mẫu người yêu lý tưởng của bạn ',
+        'Nếu nhận được 1,5 tỷ thì bạn sẽ làm gì?',
     ];
     var randomQuiz = [];
     let quizPlaceholder = document.getElementById("quizPlaceholder");
 
-    var rawAns = [
-        'Em ơi đừng khóc bóng tối trước mắt sẽ bắt em đi',
+    var rawAns = ['Em ơi đừng khóc bóng tối trước mắt sẽ bắt em đi',
         'Biết trước đã giàu',
         'Thì làm sao',
         'Rất mất thời gian',
@@ -407,9 +434,39 @@
         'Thảo/Hà ơi, em hỏi tí',
         'Sếp ơii, cíu em',
         'Thế áa',
+        'trờiii',
         'Xong chưa em?',
         'Lại phải report',
         'Sao số không tăng nhỉ?',
+        'Vãi nhái!',
+        'Hay lắm anh/chị/em!',
+        'ao? that day',
+        'Rất mất thời gian',
+        'Ông cháu',
+        'dev chưa code xong nhỉ',
+        'thế thì chịu òy',
+        'gọi bằng họ tên',
+        'ừuuuuu',
+        'Thương à!',
+        'Đù má!',
+        'Đi ăn thôi các bạn',
+        'Bánh tráng không?',
+        'Ê Thảo',
+        'What the f*ck',
+        'Tuyệt',
+        'Oh wow',
+        'Chia tay rồi hả? Khi nào quay lại?',
+        'Sâu sắc lên em!',
+        'Niềm tin đã mất, giọt nước mắt cuốn kí ức anh chìm sâu',
+        'Để em đi quỳ gối ạ =(',
+        'Nụ cười đã tắt',
+        'Anh có đang lừa em không?',
+        'Cuộc sống mà',
+        'sao làm lâu thế!',
+        'xà lơ!',
+        'làm sớm hơn đi',
+        'ngon!',
+        'tốt rồi!',
     ];
     var randomAns = [];
     let ansPlaceholder1 = document.getElementById("ansPlaceholder1");
@@ -417,26 +474,28 @@
 
 
     var rawPlayer = [
+        'toan.han',
         'nhan.nguyen6',
-        'tu.tran1',
-        'duc.nguyen10',
-        'thanh.le1',
-        'thao.nguyen27',
-        'chuc.truong',
-        'nhi.nguyen10',
-        'le.nguyen2',
-        'anh.mai',
         'ha.le2',
+        'anh.nguyen22',
+        'quan.dang1',
+        'truong.nhan',
+        'phuong.nguyen21',
+        'thao.nguyen27',
+        'my.nguyen11',
+        'nhi.nguyen10',
+        'duong.doan',
+        'anh.mai',
+        'le.nguyen2',
+        'thanh.le1',
+        'tu.tran1',
         'thao.le5',
         'cuong.huynh',
-        'toan.han',
-        'quan.dang1',
-        'anh.nguyen22',
-        'truong.nhan',
+        'duc.nguyen10',
+        'chuc.truong',
         'ha.le4',
-        'duong.doan',
-        'my.nguyen11',
-        'phuong.nguyen21',
+        'hoang.le7',
+        'hanh.nguyen8',
         'tuan.truong',
     ];
     var randomPlayer = [];

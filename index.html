@@ -45,7 +45,6 @@
 
     .button-19 {
         appearance: button;
-
         border: solid transparent;
         border-radius: 16px;
         border-width: 0 0 4px;
@@ -58,7 +57,7 @@
         font-weight: 700;
         letter-spacing: .8px;
         line-height: 20px;
-        margin: 0;
+        margin: 0 8px;
         outline: none;
         overflow: visible;
         padding: 13px 16px;
@@ -140,8 +139,433 @@
 
 <body>
     <div class="wrapper text-center">
-        <h2>Nothing here</h2>
-</body>
+        <h2>F&S YEP 2022</h2>
+        <button class="button-19 button-19-primary" onclick="showPlayerAns()">Who would play?</button>
+        <button class="button-19 button-19-secondary" onclick="showQuiz()">Which answer?</button>
+        <div class="mt-lg">
+            <table style="width:100%">
+                <tr>
+                    <th>Who ask</th>
+                    <th>Who answer</th>
+                </tr>
+                <tr>
+                    <td><span id="playerPlaceholder1"></span></td>
+                    <td><span id="playerPlaceholder2"></span></td>
+                </tr>
 
+            </table>
+        </div>
+        <h1 class="ml4" style="height: 800px;">
+            <span class="letters letters-1" id="quizPlaceholder"></span>
+        </h1>
+        <button class="button-19 button-19-tet" onclick="showAns()">Your word</button>
+        <div class="mt-lg" style="height: 800px;">
+            <table style="width:100%">
+                <tr>
+                    <th>1st statement <br> for asking or giving gift</th>
+                    <th>2nd statement <br>for answering or receiving present </th>
+                </tr>
+                <tr>
+                    <td><span id="ansPlaceholder1"></span></td>
+                    <td><span id="ansPlaceholder2"></span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+<script>
+    var rawQuiz = ['Khi nào thì cưới?',
+        'Ba mẹ bạn có biết bạn 3d không?',
+        'Mẫu người phụ nữ lý tưởng của bạn?',
+        'Mẫu người đàn ông lý tưởng của bạn?',
+        'Anh Tuấn Trương có đẹp trai không?',
+        'Ai hát hay nhất FS?',
+        'Ai chơi đá banh hay nhất FS?',
+        'Ai ngầu nhất FS?',
+        'Ai giàu (tình cảm) nhất FS?',
+        'Ai vui tính nhất FS?',
+        'Bạn muốn người hát hay nhất FS hát bài gì?',
+        'Bạn muốn người hát dở nhất FS hát bài gì?',
+        'Bạn muốn nghe người đá banh hay nhất chúc Tết?',
+        'Và anh là ai thế em, em à, em ơi?',
+        'Mồ côi tình yêu như thế sao ko đi tìm?',
+        '3 điều bạn mong sếp của mình sẽ cải thiện',
+        'Kể tên 3 điểm mà app thanh toán khác làm tốt hơn MoMo',
+        'người bạn sẽ hẹn hò trong team',
+        'Bạn mong muốn mức lương hiện tại tăng/ giảm bao nhiêu phần trăm',
+        'yêu cầu đọc được hết tên những người tham gia buổi tiệc hôm nay',
+        'Bạn có ổn không?',
+        'Nếu không làm product thì bạn làm gì?',
+        'Có điều gì năm vừa rồi bạn không hoàn thành không?',
+        'Có điều gì năm vừa rồi bạn đã hoàn thành được?',
+        'Bạn thích bản thân mình nhất là trong hoàn cảnh nào? Vì sao?',
+        'Bạn ghét bản thân mình nhất là trong hoàn cảnh nào? Vì sao?',
+        'Bạn có giàu không?',
+        'Nếu bạn giàu, làm bạn thân vs mình nhé?',
+        'Bạn đã mua Chứng Chỉ Quỹ trên MoMo chưa?',
+        'Bạn đã mua Vàng trên MoMo chưa?',
+        'Nếu bạn chưa mua CCQ, bạn hãy đi mua đi được không?',
+        'Nếu bạn chưa mua Vàng, bạn hãy đi mua đi được không?',
+        'Tại sao bạn chưa đi mua Chứng Chỉ Quỹ?',
+        'Tại sao bạn chưa đi mua Vàng?',
+        'Bạn có muốn cuối năm sếp thưởng Chứng Chỉ Quỹ không?',
+        'Bạn có muốn cuối năm sếp thưởng Vàng không?',
+        'Giữa zalopay và momo thì app nào tốt hơn?',
+        'Nếu 1 ngày được đổi vị trí với line manager thì bạn sẽ làm gì?',
+        'Nếu 1 ngày bạn được hẹn hò với anh Duy Nhân thì bạn sẽ làm gì?',
+        'Giữa zalopay và viettel money, bạn muốn làm việc ở đâu hơn?',
+        'Thuế thu nhập cá nhân của bạn là bao nhiêu?',
+        'Nếu không phải làm ở MoMo thì sẽ làm ở đâu?',
+        'Muốn sống đến năm bao nhiêu tuổi?',
+        'Thích ở chung cư hay nhà mặt đất?',
+        'Có thấy bản thân là người tốt không?',
+        'Thích đẻ đứa đầu là con trai hay con gái?',
+        'Công ty mơ ước của bạn là gì? phải nói thật',
+        'Đã tìm được người khiến bạn muốn cưới chưa?',
+        'Đọc Cây cam ngọt của tôi chưa?',
+        'Ai là người bạn tôn trọng nhất MoMo?',
+        'Ai là người giống lãnh đạo tương lai nhất MoMo? (không phải lead/mana hiện tại)',
+        'Điều cần có ở 1 đồng nghiệp tốt?',
+        'Bạn hay cọc với team nào nhất ở MoMo? (team kiểu growth, risk, marketing,...)',
+        'Nếu có quyền quyết định bạn muốn tăng lương cho ai?',
+        'Những lúc stress bạn sẽ đi đâu quanh MoMo?',
+        'Top 5 đồng nghiệp khác giới mà bạn thích nhất trong F&S?',
+        'Thứ gì xuất khẩu được, nhập khẩu thì không?',
+        'Trong bài thơ “tát nước đầu đình”, chàng trai bỏ quên chiếc áo ở đâu?',
+        'Con gì sinh ra đã ồn ào?',
+        'Con gì sinh ra đạo đức đã không tốt?',
+        'cho dung dịch H2SO4 đậm đặc tác dụng với đứa bạn ghét. bạn sẽ dùng bao nhiu lít?',
+        'Bạn sẽ làm gì nếu trúng xổ số?',
+        'Bạn muốn sống ở quốc gia nào nếu có cơ hội?',
+        'Bạn muốn làm gì trong vài năm tới?',
+        'Nếu bạn có thể có một siêu sức mạnh, đó sẽ là gì?',
+        'Bạn muốn làm gì trong kỳ nghỉ tết?',
+        'hồi bé bạn ước lớn lên làm nghề/ công việc gì?',
+        'bạn có mối tình đầu vào năm bao nhiêu tuổi?',
+        'cuối tuần bạn thích làm gì nhất?',
+        'bạn hãy tự chấm điểm nhan sắc của bản thân',
+        'bộ phận nào trên gương mặt làm bạn cảm thấy không hài lòng nhất?',
+        'bạn thích biển hay núi? tại sao?',
+        'Lần cuối cùng bạn khóc?',
+        'Chung cư hay nhà đất, tại sao?',
+        'Nếu được viết 1 quyển sách, bạn sẽ viết về chủ đề gì?',
+        'Bạn thích góc (khu vực) nào nhất trong nhà mình?',
+        'Nếu có 2 tỷ, bạn có trích 1 nửa số tiền đó mua ô tô hay không? (TH cuộc sống đã đầy đủ, không thiếu thốn)',
+        'Nếu bạn có thể đặt mình vào vị trí của ai đó trong 24 giờ, bạn sẽ chọn ai?',
+        'Nếu có thể biến cuộc đời mình thành một bộ phim, bạn sẽ chọn bộ phim nào?',
+        'Nếu bạn có thể làm bất cứ điều gì bạn muốn, công việc mơ ước của bạn sẽ là gì?',
+        'Bạn muốn sống ở quốc gia nào nếu có cơ hội?',
+        'Trong điều kiện nào bạn sẽ nói dối một người bạn?',
+        'Nếu mà nghỉ MoMo thì điều gì làm bạn tiếc nhất?',
+        'Lý do gì còn ngồi ở công ty đến lúc này? sao chưa nghỉ hửm?',
+        'Tóc em màu nâu, môi em màu đỏ. Lại gần hỏi nhỏ, anh có thích em hông?',
+        'Khai thiệt đi, có bao nhiêu mối tình ở công ty rồi?',
+        'Còn đang làm ở MoMo mà có đi phỏng vấn đâu chưa?',
+        'Làm lính hay làm lead?',
+        'Có thực sự happy với công việc hiện tại?',
+        'Sao tự nhiên vô MoMo làm dọ?',
+        'Kỷ niệm nhớ nhất cùng đồng bọn team anh Tuấn?',
+        'Đã từng ko thích và chuyển thành quý 1 người trong team chưa?',
+        'Cuối tuần sẽ thích đi chill ở đâu?',
+        'Thích bình minh hay hoàng hôn?',
+        'Đi du lịch phượt bằng xe máy hay di chuyển bằng phương tiện khác?',
+        'Chuyến đi đầu tiên cùng một người đặc biệt sẽ đi đâu?',
+        'Tâm sự về cuộc đời thì chơi bia hay rượu?',
+        'Quan điểm về "bạn thân khác giới" như nào?',
+        'Một lần cảm thấy cuộc đời không màu hồng?',
+        'Khi chán nản, thường refresh/reboot bản thân bằng cách nào?',
+        'Kể về một lần thất tình trong đời',
+        'Kể về lần đầu tiên biết "rung động"',
+        'Bạn nào có tính cách thú vị nhất khối F&S?',
+        'Bạn nào nói chuyện hài hước nhất khối F&S?',
+        'Nếu chọn 1 người khác giới trông khối FS để yêu bạn sẽ chọn ai?',
+        'Nếu chọn 1 người khác giới trông khối FS để cưới bạn sẽ chọn ai?',
+        'Nếu chọn 1 người khác giới trông khối FS để giết bạn sẽ chọn ai?',
+        'Bạn thích nhất điều gì từ sếp bạn? (Nếu anh Tuấn phải trả lời câu này thì: Sếp Tuấn thích điều gì nhất của các lead?)',
+        'Nếu không đi buổi YEP hôm nay, và bạn bắt buộc phải chọn 1 người trong khối F&S để đi chơi. Đó là ai?',
+        'Nếu không làm Product, bạn sẽ làm gì?',
+        'Ai là người hát hay nhất khối F&S?',
+        'Ai mặc đẹp nhất YEP hôm nay? (chỉ ra 1 nam & 1 nữ)',
+        'Ngoài việc tăng lương, lên chức, trong năm 2023 bạn muốn đạt được điều gi nhất?',
+        'Giả sử mai bạn phải ra đảo sống và chỉ được đem theo 1 món đồ, đó là gì?',
+        'Bạn nữ nào điệu nhất khối F&S?',
+        'Nếu bạn có thể so sánh bản thân với bất kỳ con vật nào, thì nó là gì và tại sao?',
+        'Chọn 1 trong 2: Bia hay rượu?',
+        'Feature nào bạn tự hào nhất trong năm 2022? ',
+        'Hãy chia sẻ 1 bí mật của bạn mà mọi người trong team chưa biết?',
+        'Nếu không làm PO thì bạn sẽ làm gì?',
+        'Tôi tên gì',
+        'Giới tính tôi là gì',
+        'Tôi sinh ngày mấy',
+        'Lương tôi bao nhiêu',
+        'Bạn có ghét người đang làm MC',
+        'Tại sao sư tử là con thầy?',
+        'Xã đông nhất là xã nào?',
+        'Duy Nhân và Duy Anh có phải anh em không?',
+        'Cái gì thuộc về bạn nhưng người khác lại dùng nhiều hơn bạn?',
+        'Điểm tin cậy bao nhiêu thì mới được truy cập vào dịch vụ Vay nhanh?',
+        'Con trai có gì quý nhất?',
+        'Từ gì mà 100% team FS đều phát âm sai?',
+        'Theo bạn, một ngày đi làm "hoàn hảo" là như thế nào?',
+        'Ngoài sản phẩm của bạn, bạn sử dụng mini-app nào nhiều nhất trên MoMo?',
+        'Nếu không làm Product, bạn nghĩ bạn sẽ làm nghề gì?',
+        'Ở một vũ trụ khác, nếu có thể hẹn hò 1 người ngồi trong không gian này, sẽ là ai và vì sao?',
+        'Ở một vũ trụ khác, nếu có thể cưới 1 người ngồi trong không gian này, sẽ là ai và vì sao?',
+        'Ở một vũ trụ khác, nếu có thể làm em của 1 người ngồi trong không gian này, sẽ là ai và vì sao?',
+        'Ở một vũ trụ khác, nếu có thể làm anh chị của 1 người ngồi trong không gian này, sẽ là ai và vì sao?',
+        'Ở một vũ trụ khác, nếu có thể được làm bạn thân cùng 1 người ngồi trong không gian này, sẽ là ai và vì sao?',
+        '1 bí mật về bản thân mà mọi người sẽ bất ngờ',
+        '1 điểm về bản thân mà nhiều người ấn tượng về bạn nhất',
+        'Ấn tượng đầu tiên về sếp Tuấn',
+        'Ấn tượng đầu tiên về supervisor của bạn',
+        '3 điều bạn nhớ nhất về năm 2022 của team',
+        'Bạn có đang crush ai trong công ty không? Bạn ấy thuộc Team nào?',
+        'Ai là hình mẫu lý tưởng của bạn trong MoMo?',
+        'Thói quen hoặc sở thích nào của bạn mà bạn cho là khác thường?',
+        'Bạn đã trải qua việc gì ở MoMo mà bạn nghĩ là sẽ không bao giờ quên được (có thể là trải nghiệm tốt hoặc không tốt)',
+        'Nếu bạn có quyền chọn thêm 1 teammate (từ team khác) thì bạn sẽ chọn ai? Vì sao?',
+        'Mô tả 1 điều bạn rất không thích ở sếp bạn?',
+        'Nếu được hẹn hò 1 ngày với Nhân (FS), thì 2 bạn sẽ làm những gì?',
+        'Bạn muốn uống hết 2 ly bia trên bàn hay 1 ly nước ngọt? Thích cái nào thì làm cái đó luôn nha =))',
+        'Mô tả mẫu người yêu lý tưởng của bạn ',
+        'Nếu nhận được 1,5 tỷ thì bạn sẽ làm gì?',
+    ];
+    var randomQuiz = [];
+    let quizPlaceholder = document.getElementById("quizPlaceholder");
+
+    var rawAns = ['Em ơi đừng khóc bóng tối trước mắt sẽ bắt em đi',
+        'Biết trước đã giàu',
+        'Thì làm sao',
+        'Rất mất thời gian',
+        'Biết em đã có người ở gần bên, Nhưng anh sẽ vẫn đứng ngay đây và chờ em',
+        'Em ơi em ở lại',
+        'Ở lại với em đi em ở lại',
+        'Dô em!',
+        'Ăn chị!',
+        'Khi anh cất bước đi chẳng quay trở về Nghe như trong lòng em băng giá tái tê',
+        'Em cũng chỉ là con gái thôi',
+        'Buồn là khóc',
+        'Nhưng vui là cười',
+        'Dùng nụ cười che đi sự yếu đuối',
+        'Vì em íu đúi, muôn đời em vẫn íu đúi',
+        'Em che hết đi bằng những nụ cười',
+        'Ui vãi',
+        'huhu chị ơi tối qua em không ngủ được',
+        'chị ơi em đói',
+        'bug lắm vãi ',
+        'Đi ăn cơm đê mn ơi',
+        'Tạm biệt',
+        'Em bị làm sao đấy?',
+        'Ai cho em đến sớm như vậy?',
+        'mother you',
+        'This dog',
+        'Con bé này',
+        'Your mother is crazy?',
+        'Bye bye',
+        'Tạm bịt',
+        'Xin chào',
+        'Xin cảm ơn',
+        'Ê con kia',
+        'ừm tuỳ để BU comment rồi biết',
+        'chỉ có con gà mới vẽ wireframe mà k auto layout',
+        'làm giúp cái này đi',
+        'zalopay!',
+        'Vãi chưởng',
+        'Vãi thật',
+        'Ùi, dã man',
+        'Điên à',
+        'Em ít nói lắm í',
+        'Hướng nội',
+        'Cảm thán cũng ít luôn',
+        'Tại hướng nội',
+        'Chắc là "oh my god" ? :D',
+        'Oát đờ phắc',
+        'Ch*t m* ròi',
+        'Ui khumm',
+        'Sợ lìnnnn',
+        'Anh đâu trải qua những gì em đã trải qua',
+        'Má á á á á á á á á ',
+        'Thật dô nghĩa',
+        'Ghê dậy',
+        'Là sao dậy',
+        'An tuê',
+        'Câu chuyện là...',
+        'trời ơi/ trời',
+        'cái gì zậyy',
+        'ủa alo',
+        'dựng cái chữ lên',
+        'thèm uống cái gì đấy',
+        'Rồi chắc chưa',
+        'Cơ bản là...',
+        'Nếu đúng thì chúng ta nên...',
+        'Vậy hả',
+        'Mình nghĩ là...',
+        'Trời,....má ơi',
+        'Ghê, ghê =))))',
+        'Ỏ, sao zọ? ',
+        'Hoy, Hông sao đâu',
+        'wá mợt mõi',
+        'mé cười ẻ =)))',
+        'nghĩ mà tưk ak',
+        'cọc à nha',
+        'chán đồng đội :)',
+        'ỏ, là sao???!!! ỏ, gì zậy chời??? ủa cái qq zì zạ',
+        'ta nói.... tưk ak',
+        'ai bít dì âu',
+        'nhầm nhọt tí zì căng',
+        'zậy luôn :upside-down-face:',
+        'khum hĩu lun ....:)',
+        'Ôi vãi :3',
+        'Bất ngờ chưa bà già',
+        'Mừ đỉm',
+        'Đừng trầm cảm nữa, trẻ trou lên',
+        'Cuộc đời nở hoa hay cuộc sống bế tắc',
+        'Full crit',
+        'Quá là đẹp troai',
+        'Cuộc sống mà',
+        'Quá trời quá đất',
+        'Cíu em',
+        'Điếc rồi ==',
+        'Chọc mù mắt con đi',
+        'Hổng biết gì hớt',
+        'con chó này',
+        'em lại tính thao túng ai à',
+        'Thảo/Hà ơi, em hỏi tí',
+        'Sếp ơii, cíu em',
+        'Thế áa',
+        'trờiii',
+        'Xong chưa em?',
+        'Lại phải report',
+        'Sao số không tăng nhỉ?',
+        'Vãi nhái!',
+        'Hay lắm anh/chị/em!',
+        'ao? that day',
+        'Rất mất thời gian',
+        'Ông cháu',
+        'dev chưa code xong nhỉ',
+        'thế thì chịu òy',
+        'gọi bằng họ tên',
+        'ừuuuuu',
+        'Thương à!',
+        'Đù má!',
+        'Đi ăn thôi các bạn',
+        'Bánh tráng không?',
+        'Ê Thảo',
+        'What the f*ck',
+        'Tuyệt',
+        'Oh wow',
+        'Chia tay rồi hả? Khi nào quay lại?',
+        'Sâu sắc lên em!',
+        'Niềm tin đã mất, giọt nước mắt cuốn kí ức anh chìm sâu',
+        'Để em đi quỳ gối ạ =(',
+        'Nụ cười đã tắt',
+        'Anh có đang lừa em không?',
+        'Cuộc sống mà',
+        'sao làm lâu thế!',
+        'xà lơ!',
+        'làm sớm hơn đi',
+        'ngon!',
+        'tốt rồi!',
+    ];
+    var randomAns = [];
+    let ansPlaceholder1 = document.getElementById("ansPlaceholder1");
+    let ansPlaceholder2 = document.getElementById("ansPlaceholder2");
+
+
+    var rawPlayer = [
+        'toan.han',
+        'nhan.nguyen6',
+        'ha.le2',
+        'anh.nguyen22',
+        'quan.dang1',
+        'truong.nhan',
+        'phuong.nguyen21',
+        'thao.nguyen27',
+        'my.nguyen11',
+        'nhi.nguyen10',
+        'duong.doan',
+        'anh.mai',
+        'le.nguyen2',
+        'thanh.le1',
+        'tu.tran1',
+        'thao.le5',
+        'cuong.huynh',
+        'duc.nguyen10',
+        'chuc.truong',
+        'ha.le4',
+        'hoang.le7',
+        'hanh.nguyen8',
+        'tuan.truong',
+    ];
+    var randomPlayer = [];
+    let playerPlaceholder1 = document.getElementById("playerPlaceholder1");
+    let playerPlaceholder2 = document.getElementById("playerPlaceholder2");
+
+    var ml4 = {};
+    ml4.opacityIn = [0, 1];
+    ml4.scaleIn = [0.2, 1];
+    ml4.scaleOut = 3;
+    ml4.durationIn = 800;
+    ml4.durationOut = 600;
+    ml4.delay = 500;
+
+
+    function showQuiz() {
+        if (rawQuiz.length !== 0) {
+            randQuizOrder = Math.floor(Math.random() * (rawQuiz.length));
+            randAnsOrder = Math.floor(Math.random() * (rawAns.length));
+            randPlayerOrder = Math.floor(Math.random() * (rawPlayer.length));
+
+            quizPlaceholder.innerHTML = rawQuiz[randQuizOrder];
+            anime.timeline({ loop: false })
+                .add({
+                    targets: '.ml4 .letters-1',
+                    opacity: ml4.opacityIn,
+                    scale: ml4.scaleIn,
+                    duration: ml4.durationIn
+                });
+            randomQuiz.push(rawQuiz[randQuizOrder]);
+            rawQuiz.splice(randQuizOrder, 1);
+
+        } else {
+            quizPlaceholder.innerHTML = "No more quiz";
+        }
+    }
+
+
+    function showPlayerAns() {
+
+        if (rawPlayer.length !== 0) {
+            var player1 = playerPlaceholder2.innerHTML
+            playerPlaceholder1.innerHTML = player1;
+
+            randPlayerOrder = Math.floor(Math.random() * (rawPlayer.length));
+            playerPlaceholder2.innerHTML = rawPlayer[randPlayerOrder];
+            randomPlayer.push(rawPlayer[randPlayerOrder]);
+            rawPlayer.splice(randPlayerOrder, 1);
+
+        } else {
+            quizPlaceholder.innerHTML = "No more player";
+        }
+    }
+
+    function showAns() {
+        if (rawAns.length !== 0) {
+            randAnsOrder1 = Math.floor(Math.random() * (rawAns.length));
+            ansPlaceholder1.innerHTML = rawAns[randAnsOrder1];
+            randomAns.push(rawAns[randAnsOrder1]);
+            rawAns.splice(randAnsOrder1, 1);
+
+            randAnsOrder2 = Math.floor(Math.random() * (rawAns.length));
+            ansPlaceholder2.innerHTML = rawAns[randAnsOrder2];
+            randomAns.push(rawAns[randAnsOrder2]);
+            rawAns.splice(randAnsOrder2, 1);
+        } else {
+            quizPlaceholder.innerHTML = "No more quiz";
+        }
+    }
+
+</script>
 
 </html>
