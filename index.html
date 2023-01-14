@@ -24,14 +24,14 @@
 
     .wrapper {
         margin: auto;
-        margin-top: 64px;
-        max-width: 800px;
+        margin-top: 16px;
+        max-width: 1200px;
     }
 
     .ml4 {
         position: relative;
         font-weight: 900;
-        font-size: 4.5em;
+        font-size: 3.5em;
     }
 
     .ml4 .letters {
@@ -142,6 +142,7 @@
         <h2>F&S YEP 2022</h2>
         <button class="button-19 button-19-primary" onclick="showPlayerAns()">Who would play?</button>
         <button class="button-19 button-19-secondary" onclick="showQuiz()">Which answer?</button>
+        <button class="button-19 button-19-tet" onclick="showAns()">Your word</button>
         <div class="mt-lg">
             <table style="width:100%">
                 <tr>
@@ -152,14 +153,12 @@
                     <td><span id="playerPlaceholder1"></span></td>
                     <td><span id="playerPlaceholder2"></span></td>
                 </tr>
-
             </table>
         </div>
-        <h1 class="ml4" style="height: 800px;">
+        <h1 class="ml4" style="height: 200px;">
             <span class="letters letters-1" id="quizPlaceholder"></span>
         </h1>
-        <button class="button-19 button-19-tet" onclick="showAns()">Your word</button>
-        <div class="mt-lg" style="height: 800px;">
+        <div class="mt-lg">
             <table style="width:100%">
                 <tr>
                     <th>1st statement <br> for asking or giving gift</th>
@@ -172,10 +171,10 @@
             </table>
         </div>
     </div>
-
 </body>
 <script>
-    var rawQuiz = ['Khi nào thì cưới?',
+    var rawQuiz = [
+        'Khi nào thì cưới?',
         'Ba mẹ bạn có biết bạn 3d không?',
         'Mẫu người phụ nữ lý tưởng của bạn?',
         'Mẫu người đàn ông lý tưởng của bạn?',
@@ -514,8 +513,9 @@
     function showQuiz() {
         if (rawQuiz.length !== 0) {
             randQuizOrder = Math.floor(Math.random() * (rawQuiz.length));
-            randAnsOrder = Math.floor(Math.random() * (rawAns.length));
-            randPlayerOrder = Math.floor(Math.random() * (rawPlayer.length));
+
+            console.log("randQuizOrder", randQuizOrder)
+            console.log("rawQuiz.length", rawQuiz.length)
 
             quizPlaceholder.innerHTML = rawQuiz[randQuizOrder];
             anime.timeline({ loop: false })
